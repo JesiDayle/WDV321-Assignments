@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>WDV321 Advanced Javascript</title>
+	<style>
+		.displayContainer {
+			border: thin solid black;
+			width: 50%;
+			margin-left: 20px;
+			padding: 10px;
+		}
+
+		.contentArea {
+			margin-top: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>WDV321 Advanced Javascript</h1>
+	<h2>Dynamic Structure - Display Property Exercise</h2>
+	<p>Use this page as the basis for your assignment. You are welcome to change the content, layout and style of this
+		page as desired. </p>
+
+	<p>Create the following content areas on the page.</p>
+	<ol>
+		<li>Create a div that contains a new drop down list with at least four common Complaints to a company. </li>
+		<li>Create a div that contains four Technical Problems displayed as a set of checkboxes. </li>
+		<li>Create a div that contains four Product Issues displayed as a set of radio buttons.</li>
+		<li>Use the display property to remove these content containers from the page.</li>
+	</ol>
+	<p>
+		Based on the selection from the &quot;Reason For Contact&quot; drop down, dynamically
+		display the requested content in the Display Container section. For this exercise use
+		the CSS display property to show/remove the requested content areas.
+	</p>
+	<h4>Customer Service Complaints:</h4>
+	<p>
+		<label>Reason For Contact:
+			<select name="contactType" id="contactType">
+				<option value="">Select Reason</option>
+				<option value="C">Complaints</option>
+				<option value="T">Technical Problems</option>
+				<option value="P">Product Issues</option>
+			</select>
+		</label>
+	</p>
+	<section class="displayContainer">
+		<div id="complaintsDiv" class="contentArea" style="display:none;">
+			<label for="complaintsSelect">Select a Complaint:</label>
+			<select id="complaintsSelect">
+				<option value="">Select Complaint</option>
+				<option value="Late Delivery">Late Delivery</option>
+				<option value="Poor Service">Poor Service</option>
+				<option value="Wrong Item">Wrong Item</option>
+				<option value="Billing Issue">Billing Issue</option>
+			</select>
+		</div>
+
+		<div id="technicalDiv" class="contentArea" style="display:none;">
+			<p>Technical Problems:</p>
+			<label><input type="checkbox" value="Login Issue"> Login Issue</label><br>
+			<label><input type="checkbox" value="Website Down"> Website Down</label><br>
+			<label><input type="checkbox" value="Slow Performance"> Slow Performance</label><br>
+			<label><input type="checkbox" value="Error Messages"> Error Messages</label>
+		</div>
+
+		<div id="productDiv" class="contentArea" style="display:none;">
+			<p>Product Issues:</p>
+			<label><input type="radio" name="productIssue" value="Defective Item"> Defective Item</label><br>
+			<label><input type="radio" name="productIssue" value="Missing Parts"> Missing Parts</label><br>
+			<label><input type="radio" name="productIssue" value="Wrong Item Sent"> Wrong Item Sent</label><br>
+			<label><input type="radio" name="productIssue" value="Damaged in Shipping"> Damaged in Shipping</label>
+		</div>
+	</section>
+
+	<script>
+		const contactSelect = document.getElementById('contactType');
+		const complaintsDiv = document.getElementById('complaintsDiv');
+		const technicalDiv = document.getElementById('technicalDiv');
+		const productDiv = document.getElementById('productDiv');
+
+		contactSelect.addEventListener('change', function () {
+			complaintsDiv.style.display = 'none';
+			technicalDiv.style.display = 'none';
+			productDiv.style.display = 'none';
+			if (this.value === 'C') {
+				complaintsDiv.style.display = 'block';
+			} else if (this.value === 'T') {
+				technicalDiv.style.display = 'block';
+			} else if (this.value === 'P') {
+				productDiv.style.display = 'block';
+			}
+		});
+	</script>
+</body>
+
+</html>

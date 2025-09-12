@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Builder Demo</title>
+    <!-- <script src="script2-1.js"></script> -->
+</head>
+<body>
+    <h1>Pizza Builder Demo</h1>
+
+    <h2>Step 1: Dropdown Created with document.write()</h2>
+    <select id="crustSelect">
+        <script>
+            let crustType = ["Thin Crust", "Thick Crust", "Stuffed Crust", "Gluten Free"];
+            for (let i = 0; i < crustType.length; i++) {
+                document.write("<option value='" + crustType[i] + "'>" + crustType[i] + "</option>");
+            }
+        </script>
+    </select>
+
+    <h2>Step 2: Dropdown Created with createElement() and appendChild()</h2>
+    <select id="toppingSelect"></select>
+    <script>
+        let toppings = ["Pepperoni", "Sausage", "Mushrooms", "Onions"];
+        let elementSelect = document.getElementById("toppingSelect");
+
+        toppings.forEach(function(topping) {
+            let option = document.createElement("option");
+            option.value = topping;
+            option.innerHTML = topping;
+            elementSelect.appendChild(option);
+        });
+    </script>
+
+
+    <h2>Step 3: Add a New Topping</h2>
+<input type="text" id="newTopping" placeholder="Enter new topping">
+<button id="addToppingBtn">Add Topping</button>
+<button id="clearInputBtn">Clear Input</button>
+
+<script>
+    document.getElementById("addToppingBtn").addEventListener("click", function() {
+        let newToppingInput = document.getElementById("newTopping");
+        let newTopping = newToppingInput.value.trim();
+
+        if (newTopping === "") {
+            alert("Please enter a topping name!");
+            return;
+        }
+
+        // Create and add the option
+        let option = document.createElement("option");
+        option.value = newTopping;
+        option.textContent = newTopping;
+        document.getElementById("toppingSelect").appendChild(option);
+
+        newToppingInput.value = "";
+        console.log("Add new topping", newTopping);
+    });
+</script>
+
+
+    <h2>Step 4: Switch Between Pizza Styles</h2>
+    <button id="loadVeggieBtn" onclick='loadToppings(["Spinach", "Olives", "Green Peppers", "Tomatoes"]);'>Load Veggie Toppings</button>
+    <button id="loadMeatBtn">Load Meat Toppings</button>
+    <script>
+        let metToppings = ("Bacon", "Ham", "Chicken", "Salami");
+
+        document.getElementById("loadMeatBtn").addEventListener("click", function(){
+            loadTopping(meatToppings);
+        });
+
+            function loadToppings(inMeatToppings) {
+                const toppingSelect = document.getElementById("toppingSelect");
+                toppingSelect.innerHTML - "";
+                inMeatToppings.forEach((topping) => {
+                    let option = document.createElement("option");
+                    option.value = topping;
+                    option.innerHTML = topping;
+                    toppingSelect.appendChild(option);
+
+                });
+                console.log("Updated toppings:", inMeatToppings);
+            }
+    </script>
+</body>
+</html>
