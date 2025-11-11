@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>WDV321 Advanced Javascript - JSON</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+
+	<!--Link the createJSON.js file -->
+	<script src="../JSON Construct Objects/createJSON.js"></script>
+
+	<!--
+    Instructions:
+    	1. Incorporate the createJSON.js file into this page as an external javascript file.
+        2. Access the JSON object in local storage and convert it into a Javascript object.
+        3. Use the information in the object to complete the student card.   
+-->
+
+	<style>
+		.studentCard {
+			width: 200px;
+			box-sizing: border-box;
+			background-color: lightblue;
+			padding-left: 5px;
+			padding-top: 3px;
+			border: thin solid blue;
+			box-shadow: 2px 2px 2px grey;
+		}
+
+		.studentCard h3 {
+			margin: 0px;
+		}
+	</style>
+
+
+</head>
+
+<body>
+	<h1>WDV321 Advanced Javascript</h1>
+	<h2>Unit-8 JSON Objects</h2>
+	<h3>Creating and consuming a JSON object</h3>
+
+
+	<div id="studentsContainer">
+	</div>
+
+	<script>
+    // Retrieve JSON from localStorage
+    let storedJSON = localStorage.getItem("studentsData");
+
+    // Parse JSON to JavaScript object
+    let studentsList = JSON.parse(storedJSON);
+
+    // Select container where cards will go
+    let container = document.getElementById("studentsContainer");
+
+    // Loop through students and create cards
+    studentsList.forEach(student => {
+      let card = document.createElement("div");
+      card.className = "studentCard";
+      card.innerHTML = `
+        <h3>Student ID: ${student.student_id}</h3>
+        <p>Student GPA: ${student.student_gpa}</p>
+        <p>Student Courses:</p>
+        <ul>
+          ${student.student_courses.map(course => `<li>${course}</li>`).join('')}
+        </ul>
+      `;
+      container.appendChild(card);
+    });
+  </script>
+
+</body>
+
+</html>
