@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fork Yeah! - Home</title>
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Fork Yeah!</h1>
+        <nav>
+            <a href="index.html">Home</a> |
+            <a href="addRecipe.html">Add Recipe</a> |
+            <a href="groceryList.html">Grocery List</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+<main>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Available Recipes</h2>
+        <button id="resetRecipes" 
+            style="
+                padding: 8px 15px; 
+                background-color: #ff6f61; 
+                color: white; 
+                border: none; 
+                border-radius: 8px; 
+                cursor: pointer;
+                font-weight: bold;
+                transition: background-color 0.3s;
+            ">
+            Reset Recipes
+        </button>
+    </div>
+
+    <div id="recipeContainer">
+        <!-- Recipe cards dynamically generated here -->
+    </div>
+</main>
+
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 Fork Yeah! Recipe Manager
+    </footer>
+
+    <!-- Script -->
+    <script src="js/displayRecipes.js"></script>
+</body>
+</html>
