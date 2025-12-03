@@ -79,4 +79,14 @@ calculateBtn.addEventListener("click", () => {
     resultDiv.style.color = color;
 });
 
+// Event: Clear Form
+    clearBtn.addEventListener("click", () => {
+        weightInput.value = "";
+        heightFeetInput.value = "";
+        heightInchesInput.value = "";
+        resultDiv.textContent = "";
+        weightInput.style.borderColor = "";
+        heightFeetInput.style.borderColor = "";
+        heightInchesInput.style.borderColor = "";
+    });
 });
