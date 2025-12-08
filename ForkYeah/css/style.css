@@ -1,0 +1,447 @@
+/* ---------------- Reset & Body ---------------- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* ---------------- Header & Nav ---------------- */
+header {
+    background-color: #ff6f61;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    width: 100%;
+}
+
+nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ---------------- Main & Footer ---------------- */
+main {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+}
+
+/* ---------------- Index Page Cards ---------------- */
+#recipeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+#recipeContainer .recipe-card {
+    width: 300px;
+    background-color: #fff7f5;
+    border: 3px solid #ff6f61;
+    border-radius: 12px;
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.2);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#recipeContainer .recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 10px 10px 25px rgba(0,0,0,0.4);
+}
+
+#recipeContainer .recipe-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+}
+
+#recipeContainer .recipe-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+#recipeContainer .recipe-card p {
+    margin: 5px 0;
+}
+
+#recipeContainer .recipe-card button {
+    margin-top: 5px;
+    margin-right: 5px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+#recipeContainer .recipe-card button:hover {
+    background-color: #e65b50;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* ---------------- Recipe Details ---------------- */
+.recipe-details-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff7f5;
+    border-radius: 12px;
+    box-shadow: 4px 4px 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recipe-image-card {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 3px solid #ff6f61;
+    border-radius: 12px;
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.recipe-image-card img.recipe-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+}
+
+.recipe-details-container h1,
+.recipe-details-container h2 {
+    margin-bottom: 10px;
+}
+
+/* ---------------- Buttons ---------------- */
+.btn-secondary, .btn-danger, .save-btn, .cancel-btn, .add-btn, .remove-btn {
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-secondary {
+    background-color: #ff6f61;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #e65b50;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-danger {
+    background-color: #cc0000;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #990000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Servings select/input */
+select, input[type=number] {
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+/* Ingredient & instruction list items */
+.ingredient-list li,
+.instruction-list li {
+    margin-bottom: 5px;
+}
+
+/* ---------------- Toast Notifications ---------------- */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background-color: #ff6f61;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ---------------- Add Recipe Page ---------------- */
+.add-recipe-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #fff7f5;
+    border-radius: 12px;
+    box-shadow: 4px 4px 20px rgba(0,0,0,0.1);
+}
+
+.add-recipe-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff6f61;
+}
+
+/* Form fields */
+.add-recipe-container label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.add-recipe-container input,
+.add-recipe-container textarea,
+.add-recipe-container select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+/* Dynamic ingredient/instruction blocks */
+.dynamic-group {
+    background-color: #fff;
+    border: 2px solid #ff6f61;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    box-shadow: 3px 3px 12px rgba(0,0,0,0.15);
+}
+
+.dynamic-group input {
+    margin-bottom: 10px;
+}
+
+/* Add / Remove buttons */
+.add-btn,
+.remove-btn {
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-btn:hover {
+    background-color: #e65b50;
+}
+
+.remove-btn {
+    background-color: #b83a3a;
+}
+
+.remove-btn:hover {
+    background-color: #992f2f;
+}
+
+/* Submit + Cancel Buttons */
+.form-buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.save-btn {
+    background-color: #ff6f61;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background-color: #e65b50;
+}
+
+.cancel-btn {
+    background-color: #333;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #111;
+}
+
+/* ---------------- Grocery List Checkboxes ---------------- */
+.ingredientsList li input[type="checkbox"] {
+    margin-right: 10px;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+/* ---------------- Search Recipes Box ---------------- */
+.search-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    display: flex;
+    gap: 10px;
+    padding: 12px 16px;
+    background-color: #fff7f5;
+    border-radius: 14px;
+    box-shadow: 4px 4px 15px rgba(0,0,0,0.1);
+    align-items: center;
+    position: relative;
+}
+
+/* Input */
+.search-container input[type="text"] {
+    flex: 1;
+    padding: 10px 40px 10px 15px;
+    font-size: 1rem;
+    border: 2px solid #ff6f61;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Input focus effect */
+.search-container input[type="text"]:focus {
+    border-color: #e85c50;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Clear button */
+.clear-btn {
+    position: absolute;
+    right: 110px;
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    color: #ff6f61;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s;
+}
+
+.clear-btn:hover {
+    color: #e85c50;
+    transform: scale(1.2);
+}
+
+/* Search button */
+.search-btn {
+    padding: 10px 18px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.search-btn:hover {
+    background-color: #e85c50;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Show clear button only when text exists */
+.search-container input:not(:placeholder-shown) + .clear-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* No results message */
+.no-results {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ff6f61;
+    margin-top: 40px;
+}
+
+/* Hover animation for cards */
+.hover-effect {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hover-effect:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 10px 10px 25px rgba(0,0,0,0.25);
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+    #recipeContainer .recipe-card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 480px) {
+    #recipeContainer .recipe-card {
+        width: 90%;
+    }
+}

@@ -1,59 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Fork Yeah! - Grocery List</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grocery List - Fork Yeah!</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <h1>Fork Yeah!</h1>
-        <nav>
-            <a href="index.html">Home</a> | 
-            <a href="addRecipe.html">Add Recipe</a> | 
-            <a href="groceryList.html">Grocery List</a>
-        </nav>
-    </header>
+<header class="header">
+    <h1 class="logo">Fork Yeah!</h1>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="addRecipe.html">Add Recipe</a>
+        <a href="groceryList.html">Grocery List</a>
+    </nav>
+</header>
 
-    <main>
+<main>
+    <div class="add-recipe-container polished-card">
         <h2>My Grocery List</h2>
-        <ul id="groceryListContainer">
-            <!-- Grocery items will appear here -->
-        </ul>
-        <button id="clearGrocery">Clear Grocery List</button>
-    </main>
+        <ul id="groceryListContainer" class="ingredientsList"></ul>
 
-    <script>
-        $(document).ready(function() {
-            // Load grocery list from localStorage
-            let groceryList = JSON.parse(localStorage.getItem('groceryList')) || [];
-            let container = $('#groceryListContainer');
+        <div class="form-buttons">
+            <button id="clearGrocery" class="btn-danger">Clear Grocery List</button>
+        </div>
+    </div>
+</main>
 
-            function displayGrocery() {
-                container.empty();
-                groceryList.forEach((item, index) => {
-                    container.append(`<li>${item} <button class="removeItem" data-index="${index}">Remove</button></li>`);
-                });
-            }
+<footer>
+    &copy; 2025 Fork Yeah! Recipe Manager
+</footer>
 
-            displayGrocery();
+<script type="module" src="js/groceryList.js"></script>
 
-            // Remove individual item
-            $(document).on('click', '.removeItem', function() {
-                let idx = $(this).data('index');
-                groceryList.splice(idx, 1);
-                localStorage.setItem('groceryList', JSON.stringify(groceryList));
-                displayGrocery();
-            });
-
-            // Clear entire grocery list
-            $('#clearGrocery').click(function() {
-                groceryList = [];
-                localStorage.setItem('groceryList', JSON.stringify(groceryList));
-                displayGrocery();
-            });
-        });
-    </script>
 </body>
 </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fork Yeah!</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<header class="header">
+    <h1 class="logo">Fork Yeah!</h1>
+
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="addRecipe.html">Add Recipe</a>
+        <a href="groceryList.html">Grocery List</a>
+    </nav>
+</header>
+
+<main>
+    <div class="add-recipe-container polished-card">
+
+        <h2 id="formTitle" class="form-heading">Add a New Recipe</h2>
+
+        <form id="addRecipeForm" class="recipe-form">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Recipe Title</label>
+                    <input type="text" id="recipeTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="text" id="recipeImage" placeholder="Optional image URL">
+                </div>
+
+                <div class="form-group">
+                    <label>Servings</label>
+                    <input type="number" id="servings" min="1" value="1">
+                </div>
+
+                <div class="form-group">
+                    <label>Time Required</label>
+                    <input type="text" id="time" placeholder="30 min, 1 hour...">
+                </div>
+
+                <div class="form-group">
+                    <label>Difficulty</label>
+                    <select id="difficulty">
+                        <option>Easy</option>
+                        <option>Medium</option>
+                        <option>Hard</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <h3 class="section-title">Ingredients</h3>
+            <div id="ingredientsContainer" class="dynamic-container"></div>
+            <button type="button" id="addIngredientBtn" class="add-btn">
+                ➕ Add Ingredient
+            </button>
+
+            <h3 class="section-title">Instructions</h3>
+            <div id="instructionsContainer" class="dynamic-container"></div>
+            <button type="button" id="addInstructionBtn" class="add-btn">
+                ➕ Add Step
+            </button>
+
+            <div class="form-buttons">
+                <button type="submit" class="save-btn" id="saveBtn">💾 Save Recipe</button>
+                <a href="index.html" class="cancel-btn">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</main>
+
+<footer>
+    &copy; 2025 Fork Yeah! Recipe Manager
+</footer>
+
+<script src="js/storage.js"></script>
+<script src="js/addRecipe.js"></script>
+
+</body>
+</html>

@@ -1,140 +1,176 @@
-$(document).ready(function () {
+import { showToast } from "./toast.js";
 
-    // Retrieve recipes from localStorage
-    let storedRecipes = localStorage.getItem('recipes');
-    let recipes = storedRecipes ? JSON.parse(storedRecipes) : [];
-
-    const container = $('#recipeContainer');
-
-    // Placeholder sample recipe if none exist
-    if (recipes.length === 0) {
-        recipes = [
-            {
-                name: "Crockpot Chili",
-                image: "images/placeholder.png",
-                servings: 6,
-                prepTime: "25 min",
-                cookTime: "6 hr",
-                difficulty: "Medium",
-                ingredients: [
-                    { qty: 2, item: "tbsp cooking oil" },
-                    { qty: 1, item: "cup onion" },
-                    { qty: 1, item: "cup chopped peppers" },
-                    { qty: 4, item: "tbsp chili powder" },
-                    { qty: 1, item: "lb ground beef or chicken" },
-                ],
-                instructions: [
-                    "Heat cooking oil in 2 quart skillet.",
-                    "Saute onions and peppers for 5 minutes.",
-                    "Add spices and stir for 30 seconds.",
-                    "Add meat and cook until browned. Approximately 15 minutes.",
-                    "Pour contents of skillet into 3 quart crock pot.",
-                    "Rinse beans and place in crockpot.",
-                    "Open and pour Tomato puree and sauce into crock pot.",
-                    "Cover crockpot and cook on low for 6 hours.",
-                    "Serve into individual bowls and top with sour cream and cheese."
-                ]
-            }
-        ];
-        localStorage.setItem('recipes', JSON.stringify(recipes));
+// ---------- DEFAULT RECIPES ----------
+export const defaultRecipes = [
+    {
+        id: "spaghetti",
+        name: "Classic Spaghetti",
+        image: "images/placeholder.png",
+        servings: 4,
+        time: "30 min",
+        difficulty: "Easy",
+        ingredients: [
+            { amount: 1, unit: "lb", item: "Spaghetti" },
+            { amount: 2, unit: "cups", item: "Marinara Sauce" }
+        ],
+        instructions: [
+            "Boil pasta until tender.",
+            "Heat sauce and combine with pasta."
+        ]
+    },
+    {
+        id: "pancakes",
+        name: "Fluffy Pancakes",
+        image: "images/placeholder.png",
+        servings: 6,
+        time: "20 min",
+        difficulty: "Medium",
+        ingredients: [
+            { amount: 2, unit: "cups", item: "Flour" },
+            { amount: 1.5, unit: "cups", item: "Milk" }
+        ],
+        instructions: [
+            "Mix ingredients.",
+            "Cook on a griddle until golden."
+        ]
+    },
+    {
+        id: "crockpot-chili",
+        name: "Crockpot Chili",
+        image: "images/placeholder.png",
+        servings: 6,
+        time: "6 hr",
+        difficulty: "Medium",
+        ingredients: [
+            { amount: 2, unit: "tbsp", item: "Cooking Oil" },
+            { amount: 1, unit: "cup", item: "Onion, chopped" },
+            { amount: 1, unit: "cup", item: "Chopped Peppers" },
+            { amount: 4, unit: "tbsp", item: "Chili Powder" },
+            { amount: 1, unit: "tsp", item: "Hot Chili Powder (optional)" },
+            { amount: 1, unit: "lb", item: "Ground Beef or Chicken" },
+            { amount: 2, unit: "cans", item: "Red Beans" },
+            { amount: 2, unit: "cans", item: "Kidney Beans" },
+            { amount: 2, unit: "cans", item: "Tomato Puree" },
+            { amount: 2, unit: "cans", item: "Tomato Sauce" },
+            { amount: 1, unit: "cup", item: "Shredded Cheese (optional)" },
+            { amount: 0.5, unit: "cup", item: "Sour Cream (optional)" }
+        ],
+        instructions: [
+            "Heat cooking oil in a skillet.",
+            "Saute onions and peppers for 5 minutes.",
+            "Add spices and stir for 30 seconds.",
+            "Add meat and cook until browned (about 15 minutes).",
+            "Pour contents into crockpot.",
+            "Add rinsed beans, tomato puree, and sauce.",
+            "Cover and cook on low for 6 hours.",
+            "Serve with cheese and sour cream if desired."
+        ]
     }
+];
 
-    // Render all recipes
-    function renderRecipes() {
-        container.empty();
-
-        recipes.forEach((recipe, index) => {
-            const card = $(`
-                <div class="recipeCard">
-                    <h3>${recipe.name}</h3>
-                    <img src="${recipe.image}" alt="${recipe.name}" class="recipeImage" onerror="this.onerror=null;this.src='images/placeholder.png';">
-                    <p>Servings: 
-                        <select class="servingsDropdown" data-index="${index}">
-                            <option value="1" selected>Normal (${recipe.servings})</option>
-                            <option value="0.5">Half</option>
-                            <option value="2">Double</option>
-                        </select>
-                    </p>
-                    <p>Prep Time: ${recipe.prepTime}</p>
-                    <p>Cook Time: ${recipe.cookTime}</p>
-                    <p>Difficulty: ${recipe.difficulty}</p>
-                    <button class="showIngredients" data-index="${index}">Show Ingredients</button>
-                    <div class="ingredientsList" id="ingredients-${index}" style="display:none;">
-                        <ul>
-                            ${recipe.ingredients.map(i => 
-                                `<li data-qty="${i.qty}">
-                                    ${i.qty} ${i.item}
-                                    <button class="addToGrocery" data-ingredient="${i.item}">Add to Grocery List</button>
-                                </li>`
-                            ).join('')}
-                        </ul>
-                        <button class="addAllToGrocery" data-index="${index}">Add All to Grocery List</button>
-                    </div>
-                    <button class="showInstructions" data-index="${index}">Show Instructions</button>
-                    <div class="instructionsList" id="instructions-${index}" style="display:none;">
-                        <ol>
-                            ${recipe.instructions.map(step => `<li>${step}</li>`).join('')}
-                        </ol>
-                    </div>
-                </div>
-            `);
-
-            container.append(card);
-        });
-    }
-
-    renderRecipes();
-
-    // Toggle Ingredients
-    $(document).on('click', '.showIngredients', function () {
-        let idx = $(this).data('index');
-        $(`#ingredients-${idx}`).slideToggle();
-    });
-
-    // Toggle Instructions
-    $(document).on('click', '.showInstructions', function () {
-        let idx = $(this).data('index');
-        $(`#instructions-${idx}`).slideToggle();
-    });
-
-    // Add single ingredient to Grocery List
-    $(document).on('click', '.addToGrocery', function () {
-        let ingredient = $(this).data('ingredient');
-        let groceryList = JSON.parse(localStorage.getItem('groceryList')) || [];
-        if (!groceryList.includes(ingredient)) groceryList.push(ingredient);
-        localStorage.setItem('groceryList', JSON.stringify(groceryList));
-        alert(`${ingredient} added to Grocery List!`);
-    });
-
-    // Add all ingredients to Grocery List
-    $(document).on('click', '.addAllToGrocery', function () {
-        let idx = $(this).data('index');
-        let groceryList = JSON.parse(localStorage.getItem('groceryList')) || [];
-        recipes[idx].ingredients.forEach(i => {
-            if (!groceryList.includes(i.item)) groceryList.push(i.item);
-        });
-        localStorage.setItem('groceryList', JSON.stringify(groceryList));
-        alert('All ingredients added to Grocery List!');
-    });
-
-    // Update ingredient quantities based on servings
-    $(document).on('change', '.servingsDropdown', function () {
-        let idx = $(this).data('index');
-        let multiplier = parseFloat($(this).val());
-        recipes[idx].ingredients.forEach((i, iIndex) => {
-            const li = $(`#ingredients-${idx} ul li`).eq(iIndex);
-            li.text(`${(i.qty * multiplier).toFixed(2)} ${i.item}`);
-            li.append(`<button class="addToGrocery" data-ingredient="${i.item}">Add to Grocery List</button>`);
-        });
-    });
-
-    // Reset recipes and grocery list
-    $(document).on('click', '#resetRecipes', function () {
-        if (confirm("Are you sure you want to reset all recipes and grocery lists?")) {
-            localStorage.removeItem('recipes');
-            localStorage.removeItem('groceryList');
-            location.reload();
+// ---------- LOCALSTORAGE HELPERS ----------
+export const storage = {
+    initializeRecipes(recipes) {
+        if (!localStorage.getItem("recipes")) {
+            localStorage.setItem("recipes", JSON.stringify(recipes));
         }
+    },
+    getRecipes() {
+        return JSON.parse(localStorage.getItem("recipes")) || [];
+    },
+    deleteRecipe(id) {
+        const recipes = this.getRecipes().filter(r => r.id !== id);
+        localStorage.setItem("recipes", JSON.stringify(recipes));
+    },
+    addRecipe(recipe) {
+        const recipes = this.getRecipes();
+        const index = recipes.findIndex(r => r.id === recipe.id);
+        if (index > -1) {
+            recipes[index] = recipe;
+        } else {
+            recipes.push(recipe);
+        }
+        localStorage.setItem("recipes", JSON.stringify(recipes));
+    }
+};
+
+// Initialize recipes
+storage.initializeRecipes(defaultRecipes);
+
+// ---------- DISPLAY RECIPE CARDS ----------
+export function displayRecipeCards(filter = "") {
+    const container = document.getElementById("recipeContainer");
+    if (!container) return;
+
+    const recipes = storage.getRecipes();
+
+    const filteredRecipes = recipes.filter(r => {
+        const nameMatch = r.name.toLowerCase().includes(filter.toLowerCase());
+        const ingredientMatch = r.ingredients.some(i =>
+            i.item.toLowerCase().includes(filter.toLowerCase())
+        );
+        return nameMatch || ingredientMatch;
     });
 
+    container.innerHTML = "";
+
+    if (filteredRecipes.length === 0) {
+        container.innerHTML = `<p class="no-results">No recipes found.</p>`;
+        return;
+    }
+
+    filteredRecipes.forEach(recipe => {
+        const card = document.createElement("div");
+        card.className = "recipe-card hover-effect";
+
+        card.innerHTML = `
+            <div class="recipe-image-card">
+                <img src="${recipe.image}" alt="${recipe.name}" class="recipe-image">
+            </div>
+            <div class="recipe-content">
+                <h3 class="recipe-title">${recipe.name}</h3>
+                <p><strong>Servings:</strong> ${recipe.servings}</p>
+                <p><strong>Time:</strong> ${recipe.time}</p>
+                <p><strong>Difficulty:</strong> ${recipe.difficulty}</p>
+                <div class="recipe-actions" style="margin-top:10px;">
+                    <button class="btn-secondary viewRecipeBtn" data-id="${recipe.id}">View Recipe</button>
+                    <button class="btn-secondary editRecipeBtn" data-id="${recipe.id}">Edit</button>
+                    <button class="btn-danger deleteRecipeBtn" data-id="${recipe.id}">Delete</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// ---------- EVENT LISTENERS ----------
+document.addEventListener("click", e => {
+    const id = e.target.dataset.id;
+
+    if (e.target.classList.contains("viewRecipeBtn")) {
+        window.location.href = `recipeDetails.html?id=${id}`;
+    }
+
+    if (e.target.classList.contains("editRecipeBtn")) {
+        window.location.href = `addRecipe.html?id=${id}`;
+    }
+
+    if (e.target.classList.contains("deleteRecipeBtn")) {
+        if (confirm("Are you sure you want to delete this recipe?")) {
+            storage.deleteRecipe(id);
+            showToast("Recipe deleted!");
+            displayRecipeCards(document.getElementById("searchInput")?.value || "");
+        }
+    }
 });
+
+// ---------- RESET RECIPES ----------
+document.getElementById("resetRecipes")?.addEventListener("click", () => {
+    localStorage.removeItem("recipes");
+    storage.initializeRecipes(defaultRecipes);
+    displayRecipeCards(document.getElementById("searchInput")?.value || "");
+    showToast("Recipes reset to default");
+});
+
+// ---------- INITIAL DISPLAY ----------
+displayRecipeCards();

@@ -1,55 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Fork Yeah! - Home</title>
-    <!-- Link to CSS -->
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fork Yeah!</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <h1>Fork Yeah!</h1>
-        <nav>
-            <a href="index.html">Home</a> |
-            <a href="addRecipe.html">Add Recipe</a> |
-            <a href="groceryList.html">Grocery List</a>
-        </nav>
-    </header>
+<header class="header">
+    <h1 class="logo">Fork Yeah!</h1>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="addRecipe.html">Add Recipe</a>
+        <a href="groceryList.html">Grocery List</a>
+    </nav>
+</header>
 
-    <!-- Main Content -->
 <main>
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2>Available Recipes</h2>
-        <button id="resetRecipes" 
-            style="
-                padding: 8px 15px; 
-                background-color: #ff6f61; 
-                color: white; 
-                border: none; 
-                border-radius: 8px; 
-                cursor: pointer;
-                font-weight: bold;
-                transition: background-color 0.3s;
-            ">
-            Reset Recipes
-        </button>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search recipes...">
+        <button class="clear-btn" id="clearSearch">&times;</button>
+        <button id="searchBtn" class="search-btn">Search</button>
     </div>
 
-    <div id="recipeContainer">
-        <!-- Recipe cards dynamically generated here -->
+    <div id="recipeContainer" class="recipe-cards-container">
+        <!-- Cards load dynamically -->
     </div>
+
+    <button id="resetRecipes" class="btn-danger">Reset Recipes</button>
 </main>
 
+<footer>
+    &copy; 2025 Fork Yeah! Recipe Manager
+</footer>
 
-    <!-- Footer -->
-    <footer>
-        &copy; 2025 Fork Yeah! Recipe Manager
-    </footer>
+<script type="module">
+import { displayRecipeCards } from './js/displayRecipes.js';
 
-    <!-- Script -->
-    <script src="js/displayRecipes.js"></script>
+const searchInput = document.getElementById("searchInput");
+const clearSearch = document.getElementById("clearSearch");
+const searchBtn = document.getElementById("searchBtn");
+
+function filterRecipes() {
+    displayRecipeCards(searchInput.value);
+}
+
+searchInput.addEventListener("input", filterRecipes);
+searchBtn.addEventListener("click", filterRecipes);
+clearSearch.addEventListener("click", () => {
+    searchInput.value = "";
+    filterRecipes();
+});
+</script>
+
+<script src="js/storage.js"></script>
 </body>
 </html>
